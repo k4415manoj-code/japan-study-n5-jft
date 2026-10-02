@@ -1,3 +1,6 @@
-# Japan Study N5 & JFT
-Upload `index.html`, `style.css`, and `script.js` to the root of your GitHub repository.
-GitHub Pages: Settings → Pages → Deploy from a branch → main → /(root) → Save.
+# JFT Beginner Mock Tests
+- 5 mock tests
+- 30 questions per test
+- 150 questions total
+- Beginner vocabulary, basic grammar and daily Japanese
+Open `jft-mock-tests.html`.
