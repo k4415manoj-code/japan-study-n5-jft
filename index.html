@@ -1,1 +1,131 @@
-<!doctype html><html lang="si"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Japan Study N5 & JFT</title><link rel="stylesheet" href="style.css"></head><body><header><div class="brand">🇯🇵 Japan Study</div><div>N5 • JFT Study & Practice</div></header><main><section class="hero"><h1>Japanese N5 & JFT</h1><p>Hiragana • Kanji • Vocabulary • Grammar • Conversation • Practice</p></section><div class="grid"><button onclick="show('vocab')">📚 Vocabulary</button><button onclick="show('kanji')">🈶 Kanji</button><button onclick="show('grammar')">📝 Grammar</button><button onclick="show('conversation')">💬 Conversation</button><button onclick="show('practice')">🎯 JFT Practice</button><button onclick="show('about')">ℹ️ About</button></div><section id="content" class="card"><h2>ඉගෙනීම පටන් ගමු 👋</h2><p>Lesson එකක් තෝරන්න.</p></section></main><footer>Japan Study N5 & JFT</footer><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JFT-Basic Practice Mock Test - 48 Questions</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0;color:#222}
+.container{max-width:800px;margin:auto;padding:20px}
+.card{background:white;border-radius:16px;padding:22px;box-shadow:0 4px 18px #0001;margin-top:18px}
+h1{font-size:24px}.tag{display:inline-block;background:#e8f0ff;padding:7px 12px;border-radius:20px;margin-bottom:10px}
+.option{display:block;width:100%;text-align:left;padding:14px;margin:10px 0;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:16px}
+.option:hover{background:#f0f5ff}.selected{border:2px solid #356ae6;background:#eef4ff}
+button{border:0;border-radius:10px;padding:12px 18px;font-size:16px;cursor:pointer;margin:5px}
+.primary{background:#356ae6;color:white}.secondary{background:#e9edf3}
+#result{display:none}.review{border-top:1px solid #ddd;padding:12px 0}
+.small{color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card" id="quiz">
+<h1>🇯🇵 JFT-Basic Practice Mock Test</h1>
+<div class="small">Original practice questions • 48 questions</div>
+<div id="question"></div>
+<div>
+<button class="secondary" id="prev" onclick="prevQ()">← Previous</button>
+<button class="primary" id="next" onclick="nextQ()">Next →</button>
+<button class="primary" id="submit" onclick="finish()" style="display:none">Submit</button>
+</div>
+</div>
+<div class="card" id="result"></div>
+</div>
+
+<script>
+const questions = [
+/* Vocabulary / Kanji 1-12 */
+{cat:"Vocabulary / Kanji",q:"「会社（かいしゃ）」の いみは どれですか。",o:["school","company","hospital","station"],a:1},
+{cat:"Vocabulary / Kanji",q:"「今日（きょう）」は いつですか。",o:["yesterday","today","tomorrow","morning"],a:1},
+{cat:"Vocabulary / Kanji",q:"「水（みず）」は どれですか。",o:["water","food","tea","rice"],a:0},
+{cat:"Vocabulary / Kanji",q:"「駅（えき）」は どんな ところですか。",o:["A place for trains","A place for eating","A place for studying","A place for shopping"],a:0},
+{cat:"Vocabulary / Kanji",q:"「大きい（おおきい）」の はんたいは どれですか。",o:["あたらしい","ちいさい","ながい","はやい"],a:1},
+{cat:"Vocabulary / Kanji",q:"「午前（ごぜん）9時」は いつですか。",o:["9 a.m.","9 p.m.","12 p.m.","6 p.m."],a:0},
+{cat:"Vocabulary / Kanji",q:"「休み（やすみ）」の いみは どれですか。",o:["work","holiday/rest","busy","meeting"],a:1},
+{cat:"Vocabulary / Kanji",q:"「先生（せんせい）」は だれですか。",o:["student","teacher","customer","friend"],a:1},
+{cat:"Vocabulary / Kanji",q:"「電車（でんしゃ）」は どれですか。",o:["bus","train","taxi","bicycle"],a:1},
+{cat:"Vocabulary / Kanji",q:"「安い（やすい）」の いみは どれですか。",o:["expensive","cheap","difficult","far"],a:1},
+{cat:"Vocabulary / Kanji",q:"「食べます（たべます）」は 何を しますか。",o:["drink","eat","buy","sleep"],a:1},
+{cat:"Vocabulary / Kanji",q:"「右（みぎ）」の はんたいは どれですか。",o:["うえ","した","ひだり","まえ"],a:2},
+
+/* Conversation & Expression 13-24 */
+{cat:"Conversation & Expression",q:"A: おはようございます。 B: ______。",o:["おはようございます","いただきます","さようなら","おやすみなさい"],a:0},
+{cat:"Conversation & Expression",q:"A: ありがとうございます。 B: ______。",o:["すみません","どういたしまして","おねがいします","いってきます"],a:1},
+{cat:"Conversation & Expression",q:"店で「これを ください」と言いました。何を したいですか。",o:["buy this","return this","look for a station","make a phone call"],a:0},
+{cat:"Conversation & Expression",q:"A: すみません、トイレは どこですか。 B: ______。",o:["3人です","あちらです","100円です","元気です"],a:1},
+{cat:"Conversation & Expression",q:"A: 何時に 会いますか。 B: ______。",o:["駅です","3時に","田中さんです","はい、元気です"],a:1},
+{cat:"Conversation & Expression",q:"A: いっしょに 昼ごはんを 食べませんか。 B: ______。",o:["いいですね","わかりませんか","どうぞ","お大事に"],a:0},
+{cat:"Conversation & Expression",q:"A: 今日は 仕事ですか。 B: いいえ、______。",o:["仕事です","休みです","会社です","元気です"],a:1},
+{cat:"Conversation & Expression",q:"A: これ、いくらですか。 B: ______。",o:["500円です","5時です","5人です","駅です"],a:0},
+{cat:"Conversation & Expression",q:"A: すみません。 B: ______。",o:["はい、何ですか","いただきます","おめでとう","おやすみ"],a:0},
+{cat:"Conversation & Expression",q:"家を 出るとき、何と言いますか。",o:["ただいま","いってきます","おかえりなさい","いただきます"],a:1},
+{cat:"Conversation & Expression",q:"家に 帰ったとき、何と言いますか。",o:["いってらっしゃい","ただいま","おやすみなさい","こんにちは"],a:1},
+{cat:"Conversation & Expression",q:"人に お願いするとき、よく 使う ことばは どれですか。",o:["お願いします","おかえりなさい","いただきます","ごちそうさま"],a:0},
+
+/* Listening-style text 25-36 */
+{cat:"Listening",q:"【Listening-style】男の人：明日は 何時に 起きますか。女の人：6時です。→ 女の人は 何時に 起きますか。",o:["5時","6時","7時","8時"],a:1},
+{cat:"Listening",q:"【Listening-style】店員：何名様ですか。客：2人です。→ 何人ですか。",o:["1人","2人","3人","4人"],a:1},
+{cat:"Listening-style",q:"【Listening-style】男の人：コーヒーを お願いします。→ 男の人は 何を 注文しましたか。",o:["お茶","水","コーヒー","ジュース"],a:2},
+{cat:"Listening-style",q:"【Listening-style】女の人：駅まで バスで 行きます。→ 何で 駅へ 行きますか。",o:["電車","バス","自転車","歩いて"],a:1},
+{cat:"Listening-style",q:"【Listening-style】男の人：今日は 月曜日です。→ 今日は 何曜日ですか。",o:["日曜日","月曜日","火曜日","金曜日"],a:1},
+{cat:"Listening-style",q:"【Listening-style】女の人：りんごを 3つ 買いました。→ りんごは いくつですか。",o:["1つ","2つ","3つ","4つ"],a:2},
+{cat:"Listening-style",q:"【Listening-style】男の人：午後7時に レストランで 会いましょう。→ 何時に 会いますか。",o:["午前7時","午後5時","午後7時","午後9時"],a:2},
+{cat:"Listening-style",q:"【Listening-style】女の人：今日は 雨です。傘を 持って 行きます。→ 何を 持って 行きますか。",o:["帽子","傘","かばん","靴"],a:1},
+{cat:"Listening-style",q:"【Listening-style】男の人：この電車は 東京へ 行きますか。女の人：いいえ、大阪へ 行きます。→ 電車は どこへ 行きますか。",o:["東京","大阪","京都","名古屋"],a:1},
+{cat:"Listening-style",q:"【Listening-style】女の人：朝ごはんは パンと たまごを 食べました。→ 何を 食べましたか。",o:["ごはんと魚","パンとたまご","そばと肉","果物だけ"],a:1},
+{cat:"Listening-style",q:"【Listening-style】男の人：仕事は 9時から 5時までです。→ 仕事は 何時に 終わりますか。",o:["3時","4時","5時","6時"],a:2},
+{cat:"Listening-style",q:"【Listening-style】女の人：このかばんは 3000円です。→ いくらですか。",o:["1000円","2000円","3000円","5000円"],a:2},
+
+/* Reading 37-48 */
+{cat:"Reading",q:"【Reading】「月曜日は 会社へ 行きます。火曜日は 休みです。」→ 火曜日は どうですか。",o:["仕事です","休みです","学校です","旅行です"],a:1},
+{cat:"Reading",q:"【Reading】「スーパーは 9時から 20時までです。」→ スーパーは 何時までですか。",o:["9時","18時","20時","21時"],a:2},
+{cat:"Reading",q:"【Reading】「田中さんは 毎朝 7時に 起きます。」→ 田中さんは いつ 起きますか。",o:["毎朝7時","毎晩7時","毎朝8時","毎週7時"],a:0},
+{cat:"Reading",q:"【Reading】「駅の となりに コンビニが あります。」→ コンビニは どこですか。",o:["駅の上","駅のとなり","駅の中","駅の前の学校"],a:1},
+{cat:"Reading",q:"【Reading】「今日は 暑いです。水を たくさん 飲みます。」→ 何を 飲みますか。",o:["お茶","水","コーヒー","牛乳"],a:1},
+{cat:"Reading",q:"【Reading】「私は 毎日 電車で 会社へ 行きます。」→ 何で 会社へ 行きますか。",o:["バス","車","電車","自転車"],a:2},
+{cat:"Reading",q:"【Reading】「りんごは 100円、バナナは 150円です。」→ バナナは いくらですか。",o:["50円","100円","150円","250円"],a:2},
+{cat:"Reading",q:"【Reading】「明日は 日曜日です。会社は 休みです。」→ 明日は 会社が ありますか。",o:["はい、あります","いいえ、休みです","午後だけです","わかりません"],a:1},
+{cat:"Reading",q:"【Reading】「山田さんは 日本語を 勉強しています。毎晩 1時間 勉強します。」→ 毎晩 何時間 勉強しますか。",o:["30分","1時間","2時間","3時間"],a:1},
+{cat:"Reading",q:"【Reading】「この店は 駅から 近いです。」→ 店は 駅から どうですか。",o:["遠いです","近いです","大きいです","新しいです"],a:1},
+{cat:"Reading",q:"【Reading】「母は スーパーで 野菜と 魚を 買いました。」→ 何を 買いましたか。",o:["肉と米","野菜と魚","パンと牛乳","果物と水"],a:1},
+{cat:"Reading",q:"【Reading】「会議は 10時から 11時までです。」→ 会議は 何時間ですか。",o:["30分","1時間","2時間","3時間"],a:1}
+];
+
+let current=0;
+let answers=Array(questions.length).fill(null);
+
+function render(){
+ const q=questions[current];
+ document.getElementById("question").innerHTML=
+ `<div class="tag">${q.cat} • ${current+1}/${questions.length}</div>
+ <h2>${q.q}</h2>`+
+ q.o.map((x,i)=>`<button class="option ${answers[current]===i?'selected':''}" onclick="choose(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("");
+ document.getElementById("prev").style.display=current===0?"none":"inline-block";
+ document.getElementById("next").style.display=current===questions.length-1?"none":"inline-block";
+ document.getElementById("submit").style.display=current===questions.length-1?"inline-block":"none";
+}
+function choose(i){answers[current]=i;render()}
+function nextQ(){if(current<questions.length-1){current++;render()}}
+function prevQ(){if(current>0){current--;render()}}
+function finish(){
+ let score=0;
+ questions.forEach((q,i)=>{if(answers[i]===q.a)score++});
+ document.getElementById("quiz").style.display="none";
+ let r=document.getElementById("result");
+ r.style.display="block";
+ let html=`<h1>Result 🎉</h1><h2>Score: ${score} / ${questions.length}</h2>
+ <p>${Math.round(score/questions.length*100)}%</p>
+ <button class="primary" onclick="location.reload()">Try Again</button><hr>`;
+ questions.forEach((q,i)=>{
+   const ok=answers[i]===q.a;
+   html+=`<div class="review"><b>${i+1}. ${ok?"✅ Correct":"❌ Wrong"}</b>
+   <div>${q.q}</div><div>Your answer: ${answers[i]===null?"Not answered":q.o[answers[i]]}</div>
+   <div>Correct answer: <b>${q.o[q.a]}</b></div></div>`;
+ });
+ r.innerHTML=html;
+ window.scrollTo(0,0);
+}
+render();
+</script>
+</body>
+</html>
